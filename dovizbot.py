@@ -3,6 +3,7 @@ from discord.ext.commands import Bot
 from discord.ext import commands
 import requests
 from bs4 import BeautifulSoup
+import os
 
 url = "https://www.doviz.com/"
 
@@ -34,4 +35,4 @@ async def dolar(ctx):
 async def euro(ctx):
     await ctx.send("1€ = "+ eurodegeri + " TL")
 
-bot.run("NzQyMDY0NTU0MjcxMzA5OTk2.XzAreA.zhyZ0ZiKtt7Q-2SrKIYktiYPSU4")
+bot.run(os.environ.get('dovizbot'))
