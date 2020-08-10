@@ -7,16 +7,6 @@ import os
 
 url = "https://www.doviz.com/"
 
-r = requests.get(url)
-soup = BeautifulSoup(r.content, "html.parser")
-
-gelen_veri = soup.find_all("div", {"class":"market-data"})
-doviztablosu = gelen_veri[0].find_all("div",{"class":"item"})
-dolardeger = doviztablosu[1].find("span",{"class":"value"})
-eurodeger = doviztablosu[2].find("span",{"class":"value"})
-dolardegeri = dolardeger.text
-eurodegeri = eurodeger.text
-
 bot = discord.Client()
 bot_prefix = "!"
 bot = commands.Bot(command_prefix=bot_prefix)
@@ -29,10 +19,24 @@ async def on_ready():
 
 @bot.command(pass_context=True)
 async def dolar(ctx):
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "html.parser")
+
+    gelen_veri = soup.find_all("div", {"class":"market-data"})
+    doviztablosu = gelen_veri[0].find_all("div",{"class":"item"})
+    dolardeger = doviztablosu[1].find("span",{"class":"value"})
+    dolardegeri = dolardeger.text
     await ctx.send("1$ = "+ dolardegeri + " TL")
 
 @bot.command(pass_context=True)
 async def euro(ctx):
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "html.parser")
+
+    gelen_veri = soup.find_all("div", {"class":"market-data"})
+    doviztablosu = gelen_veri[0].find_all("div",{"class":"item"})
+    eurodeger = doviztablosu[2].find("span",{"class":"value"})
+    eurodegeri = eurodeger.text
     await ctx.send("1€ = "+ eurodegeri + " TL")
 
 bot.run(os.environ.get('dovizbot'))
